@@ -32,7 +32,7 @@ class IndexPage extends React.Component {
       </div>
       
       {poetry && poetry.poetryList.length>0 &&
-        poetry.poetryList.map(v=><div>{v.author}-{v.poetry_body}-{v.poetry_title}</div>)
+        poetry.poetryList.map(v=><div key={Math.random()}>{v.author}-{v.poetry_body}-{v.poetry_title}</div>)
       }
       </div>
     );

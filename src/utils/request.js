@@ -46,6 +46,7 @@ const codeMessage = {
   504: '网关超时。',
 };
 
+
 // 添加一个请求拦截器，用于设置请求过渡状态
 axios.interceptors.request.use((config) => {
   // 请求开始，蓝色过渡滚动条开始出现
@@ -72,7 +73,7 @@ export default function request (opt) {
   return axios(opt)
     .then((response) => {
       // >>>>>>>>>>>>>> 请求成功 <<<<<<<<<<<<<<
-      console.log(`【${opt.method} ${opt.url}】请求成功，响应数据：%o`, response);
+      // console.log(`【${opt.method} ${opt.url}】请求成功，响应数据：%o`, response);
 
       return response.data.data 
     })

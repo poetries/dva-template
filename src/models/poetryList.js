@@ -1,3 +1,4 @@
+import queryString from 'query-string'
 import {
     queryPoetry
 } from '../services';
@@ -8,7 +9,17 @@ export default {
     poetryList:[]
   },
    subscriptions: {
-     
+    setup({ dispatch, history }) {
+      // 监听路由的变化，请求页面数据
+      return history.listen(({ pathname, search }) => {
+        const query = queryString.parse(search)
+        
+        // 监听首页路由加载数据
+        if (pathname === '/') {
+          dispatch({ type: 'fetchPoetry'})
+        }
+      })
+    }
   },
   reducers: {
     savePoetryList(state,action){

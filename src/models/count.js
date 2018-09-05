@@ -30,7 +30,7 @@ export default {
   effects: {
     // 调用 dispatch(addAsync())
     *addAsync(action, { call, put }) {
-      yield call(delay,2000)
+      yield call(delay,500)
       yield put({type:'async'})
     }
 },
