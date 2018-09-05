@@ -1,34 +1,17 @@
 import {delay} from '../utils/delay'
 import key from 'keymaster'
-import request from '../utils/request';
 
 export default {
-
   namespace: 'count',
-
   state: {
     record: 0,
-    current: 0,
-    poetryList:[]
+    current: 0
   },
-
    subscriptions: {
       keyboardWatcher({ dispatch }) {
           key('⌘+up, ctrl+up', () => { dispatch({type:'add'}) });
       },
   },
-
-  effects: {
-    *addAsync(action, {call, put}){
-      yield call(delay,1000)
-      yield put({type:'async'})
-    },
-    *fetch({call, put}){
-      let {data} = yield call(request('https://easy-mock.com/mock/5b7fd63f719c7b7241f4e2fa/tangshi/tang-shi'))
-      yield put({type:'fetchPoetry',payload:{data:123}})
-    }
-  },
-
   reducers: {
     add(state) {
       const newCurrent = state.current + 1;
@@ -42,14 +25,16 @@ export default {
     },
     async(state){
       return { ...state, current: state.current + 10 };
-    },
-    fetchPoetry(state,action){
-      console.log(action)
-      return {
-        ...state,
-        poetryList:action.payload
-      }
-    },
+    }
   },
+  effects: {
+    // 调用 dispatch(addAsync())
+    *addAsync(action, { call, put }) {
+      yield call(delay,2000)
+      yield put({type:'async'})
+    }
+},
+
+ 
 
 };

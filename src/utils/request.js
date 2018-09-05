@@ -24,7 +24,7 @@ import store from '../index';
 
 // 设置全局参数，如响应超市时间，请求前缀等。
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = '/api/v1';
+axios.defaults.baseURL = 'https://easy-mock.com/mock';
 axios.defaults.withCredentials = true;
 
 // 状态码错误信息
@@ -70,16 +70,11 @@ axios.interceptors.response.use((response) => {
 export default function request (opt) {
   // 调用 axios api，统一拦截
   return axios(opt)
-    .then((response) => 
+    .then((response) => {
       // >>>>>>>>>>>>>> 请求成功 <<<<<<<<<<<<<<
       console.log(`【${opt.method} ${opt.url}】请求成功，响应数据：%o`, response);
 
-      // 打印业务错误提示
-      if (response.data && response.data.code != '0000') {
-        message.error(response.data.message);
-      }
-
-      return { ...response.data };
+      return response.data.data 
     })
     .catch((error) => {
       // >>>>>>>>>>>>>> 请求失败 <<<<<<<<<<<<<<
@@ -114,5 +109,5 @@ export default function request (opt) {
       console.log(`【${opt.method} ${opt.url}】请求失败，响应数据：%o`, error.response);
 
       return { code: status, message: errortext }; 
-    });
+    })
 }

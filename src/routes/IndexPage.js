@@ -4,10 +4,11 @@ import styles from './IndexPage.scss';
 
 class IndexPage extends React.Component {
   render() {
-    const { dispatch, count } = this.props;
+    const { dispatch, count, poetry } = this.props;
     
     return (
-      <div className={styles.normal}>
+      <div>
+       <div className={styles.normal}>
         <div className={styles.record}>
          Highest Record: {count.record} 
         </div>
@@ -21,21 +22,28 @@ class IndexPage extends React.Component {
           <button onClick={() => dispatch({ type: 'count/minus' }) } >
                  -
           </button>
-          <button onClick={() => dispatch({ type: 'count/async' }) } >
-              addAsync
+          <button onClick={() => dispatch({ type: 'count/addAsync' }) } >
+              async
           </button>
-          <button onClick={() => dispatch({ type: 'count/fetchPoetry' }) } >
-          fetchPoetry
+          <button onClick={() => dispatch({ type: 'poetry/fetchPoetry' }) } >
+            fetch
          </button>
-          
         </div>
+      </div>
+      
+      {poetry && poetry.poetryList.length>0 &&
+        poetry.poetryList.map(v=><div>{v.author}-{v.poetry_body}-{v.poetry_title}</div>)
+      }
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { count: state.count };
+  return { 
+    count: state.count,
+    poetry:state.poetry
+  };
 } // 获取state
 
 export default connect(mapStateToProps)(IndexPage);
