@@ -3,7 +3,6 @@ import './index.css';
 import createHistory from 'history/createBrowserHistory';
 import {createLogger} from 'redux-logger';
 
-
 // 1. Initialize
 const app = dva({
     history: createHistory(),
